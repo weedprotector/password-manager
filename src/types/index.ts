@@ -1,4 +1,4 @@
 export interface PasswordPair {
-    service: string;
-    password: string;
+	service: string;
+	password: string;
 }

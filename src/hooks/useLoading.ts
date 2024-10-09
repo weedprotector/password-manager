@@ -1,22 +1,22 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 interface LoadingState {
-  loading: boolean
-  startLoading: () => void
-  stopLoading: () => void
+	loading: boolean;
+	startLoading: () => void;
+	stopLoading: () => void;
 }
 
 const useLoadingState = (): LoadingState => {
-  const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(false);
 
-  const startLoading = () => {
-    setLoading(true)
-  }
+	const startLoading = () => {
+		setLoading(true);
+	};
 
-  const stopLoading = () => {
-    setLoading(false)
-  }
+	const stopLoading = () => {
+		setLoading(false);
+	};
 
-  return { loading, startLoading, stopLoading }
-}
-export default useLoadingState
+	return { loading, startLoading, stopLoading };
+};
+export default useLoadingState;
