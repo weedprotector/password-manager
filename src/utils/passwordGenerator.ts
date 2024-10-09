@@ -1,21 +1,45 @@
+export enum CaseVariants {
+  lower = 'lower',
+  upper = 'upper',
+  random = 'random'
+}
+
 export interface PasswordOptions {
     length: number;
     useLetters: boolean;
     useNumbers: boolean;
     useSpecialChars: boolean;
-    letterCase: 'lower' | 'upper' | 'random';
+    letterCase: CaseVariants;
     customChars?: string;
 }
 
 export function generatePassword(options: PasswordOptions): string {
-    const { length, useLetters, useNumbers, useSpecialChars, letterCase } = options;
+    const { length, useLetters, useNumbers, useSpecialChars, letterCase, customChars } = options;
+
+    if (customChars && customChars.length > 0) {
+      let result = '';
+      const allChars = customChars.split(''); 
+      result = allChars.join('');
+      const remainingLength = length - allChars.length;
+      result += Array.from({ length: remainingLength }, () => sample(customChars)).join('');
+      return shuffle(result);
+  }
+
     let characters = '';
     const guaranteedCharacters = [];
   
     if (useLetters) {
       const letters = 'abcdefghijklmnopqrstuvwxyz';
-      characters += letters + (letterCase === 'upper' || letterCase === 'random' ? letters.toUpperCase() : '');
-      guaranteedCharacters.push(sample(letters + (letterCase === 'upper' ? letters.toUpperCase() : '')));
+      if (letterCase === 'upper') {
+        characters += letters.toUpperCase();
+        guaranteedCharacters.push(sample(letters.toUpperCase()));
+      } else if (letterCase === 'lower') {
+        characters += letters;
+        guaranteedCharacters.push(sample(letters));
+      } else if (letterCase === 'random') {
+        characters += letters + letters.toUpperCase();
+        guaranteedCharacters.push(sample(letters + letters.toUpperCase()));
+      }
     }
     if (useNumbers) {
       const numbers = '0123456789';

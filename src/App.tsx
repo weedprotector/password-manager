@@ -26,10 +26,11 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="text-4xl font-bold text-center my-6">Password Manager</h1>
-      <div className='w-full flex justify-center'>
-        <button onClick={openModal} className="btn btn-primary mb-4 text-center mx-auto w-max">Add New Password</button>
-      </div>
+      <header className="flex justify-between con p-4 w-full border border-indigo-600">
+        <h1 className="text-4xl font-bold">Менеджер паролей</h1>
+        <button onClick={openModal} className="border border-indigo-600 p-2">Добавить пароль</button>
+      </header>
+
       <ModalForm isOpen={isModalOpen} onClose={closeModal} />
       <PasswordTable pairs={pairs}/>
     </div>
