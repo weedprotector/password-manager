@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { savePassword } from '../services/api';
 import PasswordGenerator from './PasswordGenerator';
+import useLoadingState from '../hooks/useLoading';
+import Loader from './Loader';
 
 interface Props {
   isOpen: boolean;
@@ -10,6 +12,8 @@ interface Props {
 const ModalForm: React.FC<Props> = ({ isOpen, onClose }) => {
   const [service, setService] = useState('')
   const [password, setPassword] = useState('')
+
+  const {loading, startLoading, stopLoading} = useLoadingState()
   
   const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -19,15 +23,19 @@ const ModalForm: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    try {
-      await savePassword(service, password)
-      alert('Password saved successfully!')
-      onClose();
-    } catch (e: any) {
-      alert(e.message)
-    } finally {
-      setService('')
-      setPassword('')
+    if (service.length !== 0) {
+      startLoading()
+      try {
+        await savePassword(service, password)
+        alert('Пароль сохранен')
+        onClose();
+      } catch (e: any) {
+        alert(e.message)
+      } finally {
+        setService('')
+        setPassword('')
+        stopLoading()
+      }
     }
   }
 
@@ -55,8 +63,9 @@ const ModalForm: React.FC<Props> = ({ isOpen, onClose }) => {
             placeholder="Пароль"
             className="border-b border-indigo-600"
           />
-          <div className="flex justify-between items-center">
+          <div className="flex items-center gap-3">
             <button type="submit" className="border border-indigo-600 p-1">Сохранить</button>
+            {loading && <Loader />}
           </div>
         </form>
         <PasswordGenerator setPassword={setPassword}/>       

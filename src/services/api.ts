@@ -5,8 +5,12 @@ export const savePassword = (service: string, password: string): Promise<void> =
         localStorage.setItem(service, password);
         resolve();
       } else {
-        reject(new Error("Failed to save password."));
+        reject(new Error("Ошибка при отправлении пароля"));
       }
     }, 1000);
   });
 };
+
+export const deletePassword = (service: string) => {
+  localStorage.removeItem(service);
+}

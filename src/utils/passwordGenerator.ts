@@ -26,7 +26,7 @@ export function generatePassword(options: PasswordOptions): string {
   }
 
     let characters = '';
-    const guaranteedCharacters = [];
+    const guaranteedCharacters: string[] = [];
   
     if (useLetters) {
       const letters = 'abcdefghijklmnopqrstuvwxyz';
