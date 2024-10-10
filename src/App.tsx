@@ -70,7 +70,7 @@ function App() {
 				<div className="text-center mt-3">Нет паролей, добавьте первый</div>
 			)}
 
-			<ModalForm isOpen={isModalOpen} onClose={closeModal} />
+			{isModalOpen && <ModalForm isOpen={isModalOpen} onClose={closeModal} />}
 		</div>
 	);
 }

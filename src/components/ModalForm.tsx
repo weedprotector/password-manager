@@ -48,7 +48,10 @@ const ModalForm: React.FC<Props> = ({ isOpen, onClose }) => {
 				className={`bg-white p-8 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
 				onClick={(e) => e.stopPropagation()}
 			>
-				<form onSubmit={handleSubmit} className="flex flex-col gap-2 mb-6">
+				<form
+					onSubmit={handleSubmit}
+					className="flex flex-col gap-2 mb-6"
+				>
 					<input
 						type="text"
 						value={service}
@@ -64,7 +67,10 @@ const ModalForm: React.FC<Props> = ({ isOpen, onClose }) => {
 						className="border-b border-indigo-600"
 					/>
 					<div className="flex items-center gap-3">
-						<button type="submit" className="border border-indigo-600 p-1">
+						<button
+							type="submit"
+							className="border border-indigo-600 p-1"
+						>
 							Сохранить
 						</button>
 						{loading && <Loader />}
